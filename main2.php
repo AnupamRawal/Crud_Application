@@ -204,7 +204,7 @@ session_start();
                     type:'POST',
                     data:{pageNo:page},
                     success:function(data){
-                        $('dataTable').html(data);
+                        $('#dataTable').html(data);
                     }
 
                 })
