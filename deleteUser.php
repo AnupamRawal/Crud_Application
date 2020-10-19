@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 // if(isset($_POST['delete'])){
     $res = mysqli_query($conn,"DELETE FROM `MyGuests` WHERE id=$id");
-    header("Location:main.php");
+    header("Location:main2.php");
 // }
 ?>
 
@@ -23,7 +23,7 @@ $id=$_GET['id'];
 				<p>Do you really want to delete these records? This process cannot be undone.</p>
 			</div>
 			<div class="modal-footer justify-content-center">
-				<button href="main.php" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button href="main2.php" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 				<button type="button" name="delete" class="btn btn-danger">Delete</button>
 			</div>
 		</div>

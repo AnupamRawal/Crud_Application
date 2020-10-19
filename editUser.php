@@ -40,9 +40,9 @@
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     } else {
        echo "</br>New record created successfully";
-        // header("location:main.php");
+        // header("location:main2.php");
     }
-         header("Location:main.php");
+         header("Location:main2.php");
 
 }
     ?>
@@ -125,7 +125,7 @@
                     <!-- update button -->
                     <div class="form-group">
                         <button name="submitBtn" id="submitBtn" type="submit" class="btn btn-success">Submit</button>
-                        <button type="cancel" class="btn btn-secondry"><a href="main.php" style="text-decoration: none;">Back</a></button>
+                        <button type="cancel" class="btn btn-secondry"><a href="main2.php" style="text-decoration: none;">Back</a></button>
 
                     </div>
                 </form>

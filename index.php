@@ -1,7 +1,7 @@
      <!-- starting session to store user details -->
      <?php session_start();
      if($_SESSION["username"]){
-         header('Location:main.php');
+         header('Location:main2.php');
      }
     //  header('Location:logOut.php');
      ?>
@@ -40,7 +40,7 @@
             $validPass = $row['password'];
 
             if($validUser=$email && $validPass=$mypassword){
-                header("Location:main.php");
+                header("Location:main2.php");
             }
         }else{
             $nExist= "This user doesn't exist";
