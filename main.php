@@ -184,7 +184,6 @@ session_start();
                     echo '</ul>';
                     echo '</div>';
                 }
-
                 ?>
                 <!-- <div class="clearfix">
                     <div class="hint-text">Showing <b>5</b> out of <b> 
