@@ -1,10 +1,10 @@
-<?php 
+<?php
 include 'conn.php';
-$id=$_GET['id'];
+$id = $_GET['id'];
 
 // if(isset($_POST['delete'])){
-    $res = mysqli_query($conn,"DELETE FROM `MyGuests` WHERE id=$id");
-    header("Location:main2.php");
+$res = mysqli_query($conn, "DELETE FROM `MyGuests` WHERE id=$id");
+header("Location:main2.php");
 // }
 ?>
 

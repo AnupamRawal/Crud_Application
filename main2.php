@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -20,24 +20,24 @@ session_start();
 
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Activate tooltip
             $('[data-toggle="tooltip"]').tooltip();
 
             // Select/Deselect checkboxes
             var checkbox = $('table tbody input[type="checkbox"]');
-            $("#selectAll").click(function () {
+            $("#selectAll").click(function() {
                 if (this.checked) {
-                    checkbox.each(function () {
+                    checkbox.each(function() {
                         this.checked = true;
                     });
                 } else {
-                    checkbox.each(function () {
+                    checkbox.each(function() {
                         this.checked = false;
                     });
                 }
             });
-            checkbox.click(function () {
+            checkbox.click(function() {
                 if (!this.checked) {
                     $("#selectAll").prop("checked", false);
                 }
@@ -47,19 +47,19 @@ session_start();
 </head>
 
 <body>
-<?php 
+    <?php
     include 'conn.php';
     $limit = 3;
 
-    if(isset($_GET['page'])){
+    if (isset($_GET['page'])) {
         $page = $_GET['page'];
-    }else{
-        $page =1;
+    } else {
+        $page = 1;
     }
 
-    $offSet = ($page-1)*$limit;
+    $offSet = ($page - 1) * $limit;
     $qr = "SELECT * FROM MyGuests LIMIT {$offSet},{$limit}";
-    $result  = mysqli_query($conn,$qr);
+    $result  = mysqli_query($conn, $qr);
 
     ?>
 
@@ -71,158 +71,52 @@ session_start();
                         <div class="col-xs-6">
                             <h2>welcome<b>
 
-                                <!-- session to display username  -->
-                                <?php 
-                                echo $_SESSION["username"];
-                                ?>
-                            </b></h2>
+                                    <!-- session to display username  -->
+                                    <?php
+                                    echo $_SESSION["username"];
+                                    ?>
+                                </b></h2>
                         </div>
                         <div class="col-xs-6">
                             <button class="btn btn-success">
-                            <a href="userReg.php" class="text-white" style="color:white" >
-                            <i class="material-icons">&#xE147;</i><span>Add New Employee</span></a></button>
+                                <a href="userReg.php" class="text-white" style="color:white">
+                                    <i class="material-icons">&#xE147;</i><span>Add New Employee</span></a></button>
                             <a href="logOut.php" class="btn btn-info"> <span>Log out</span></a>
                         </div>
                     </div>
                 </div>
-                <table name="dataTable" id="dataTable" class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll">
-                                    <label for="selectAll"></label>
-                                </span>
-                            </th>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Gender</th>
-                            <th>Password</th>
-                            <th>Reg. date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody> 
+                <div id="userTable">
 
-                        <!-- importent step to remember -->
-                        <?php 
-                             while( $userData = mysqli_fetch_assoc($result))
-                             {
-                            ?>
-                        <tr>  
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" 
-                                    id="checkbox <?php echo $userData['id']; ?> " name="options[]" value="<?php echo $userData['id']; ?>">
-                                    <label for="checkbox<?php echo $userData['id']; ?>"></label>
-                                </span>
-                            </td>
-                            <td>
-                            <?php 
-                            echo $userData['id'];
-                            ?>
-                            </td>
-                            <td>
-                                <?php 
-                                echo $userData['name']?>
-                            </td>
-                            <td>
-                                <?php
-                                echo $userData['email']
-                                ?>
-                            </td>
-                             <td>
-                                <?php
-                                echo $userData['gender']
-                                ?>
-                            </td>
-                            <td>
-                                <?php 
-                                echo $userData['password']
-                                ?>
-                            </td>
-                            <td>
-                                <?php 
-                                echo $userData['reg_date']
-                                ?>
-                            </td>
-                            <td>
-                                <a href="editUser.php?id=<?php echo $userData['id']; ?>"
-                                 class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <!-- <button><a href='editUser.php'>edit</a></button> -->
-
-                                    <a href="deleteUser.php?id=<?php echo $userData['id'] ?> " class="delete" data-toggle="modal"><i
-                                        class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                    </a>  
-
-                                    <?php 
-                                    include 'deleteUser.php'
-                                    ?>
-                            </td>
-                        </tr>
-                        <?php }
-                        ?>
-                    </tbody>
-                </table>
-                <?php
-                include 'conn.php';
-                $pQ = "SELECT * FROM MyGuests";
-                $result2 = mysqli_query($conn,$pQ);
-
-                if(mysqli_num_rows($result2)>0){
-                     $totalRow=mysqli_num_rows($result2);
-                     $totalPage = ceil($totalRow/$limit);
-                     
-                     echo '<div class="clearfix">';
-                     echo '<div class="hint-text">Showing <b>'.$limit.'</b> out of <b>'.$totalRow.' </b> entries </div>';
-                     echo '<ul class="pagination">';
-                     for ($i=1; $i <=  $totalPage ; $i++) { 
-                         if($i==$page){
-                             $active = "active";
-                         }else{
-                             $active = "";
-                         }
-                         echo '<li id='.$i.'  class="page-item '.$active.' "><a href= "main.php?page='.$i.'" class="page-link">'.$i.'</a></li>'; 
-                     }
-                     echo '</ul>';
-                     echo'</div>';
-                }
-               
-                ?>
-                
+                </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script>
-        // load data into table
-        $(document).ready(function(){
-            function loadTable(page){
-                $.ajax({
-                    url:'pagination.php',
-                    type:'POST',
-                    data:{pageNo:page},
-                    success:function(data){
-                        $('#dataTable').html(data);
-                    }
 
+    <!-- script for pagination using ajax -->
+    <script type="text/javascript">
+        // load data into table
+        $(document).ready(function() {
+            function loadTable(page) {
+                $.ajax({
+                    url: 'pagination.php',
+                    type: 'POST',
+                    data: {
+                        pageNo: page
+                    },
+
+                    success: function(data) {
+                        $('#userTable').html(data);
+                    }
                 })
             }
             loadTable();
+
+            $(document).on("click", "#pagination a", function(e) {
+                e.preventDefault();
+                let pageId = $(this).attr("id");
+                loadTable(pageId);
+            })
         });
-
-
-
-
-
-
-
-
-
-
-
-
     </script>
 </body>
 
