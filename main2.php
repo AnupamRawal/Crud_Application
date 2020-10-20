@@ -1,6 +1,10 @@
 <?php
 session_start();
 ?>
+<?php
+include 'conn.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +17,7 @@ session_start();
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="table.css" rel="stylesheet" />
     <link href="deleteCss.css" rel="stylesheet" />
@@ -45,51 +49,11 @@ session_start();
         });
     </script>
 </head>
+<!-- importent step to remember -->
 
 <body>
-    <?php
-    include 'conn.php';
-    $limit = 3;
+    <div class="container" id="container">
 
-    if (isset($_GET['page'])) {
-        $page = $_GET['page'];
-    } else {
-        $page = 1;
-    }
-
-    $offSet = ($page - 1) * $limit;
-    $qr = "SELECT * FROM MyGuests LIMIT {$offSet},{$limit}";
-    $result  = mysqli_query($conn, $qr);
-
-    ?>
-
-    <div class="container">
-        <div class="table-responsive">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <h2>welcome<b>
-
-                                    <!-- session to display username  -->
-                                    <?php
-                                    echo $_SESSION["username"];
-                                    ?>
-                                </b></h2>
-                        </div>
-                        <div class="col-xs-6">
-                            <button class="btn btn-success">
-                                <a href="userReg.php" class="text-white" style="color:white">
-                                    <i class="material-icons">&#xE147;</i><span>Add New Employee</span></a></button>
-                            <a href="logOut.php" class="btn btn-info"> <span>Log out</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div id="userTable">
-
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- script for pagination using ajax -->
@@ -97,24 +61,26 @@ session_start();
         // load data into table
         $(document).ready(function() {
             function loadTable(page) {
+                console.log(page);
                 $.ajax({
-                    url: 'pagination.php',
-                    type: 'POST',
+                    url: "pagination.php",
+                    type: "POST",
                     data: {
                         pageNo: page
                     },
-
                     success: function(data) {
-                        $('#userTable').html(data);
+                        console.log(data);
+                        $('#container').html(data);
                     }
-                })
+                });
             }
             loadTable();
-
-            $(document).on("click", "#pagination a", function(e) {
+            $(document).on("click", "#pagination a ", function(e) {
                 e.preventDefault();
                 let pageId = $(this).attr("id");
-                loadTable(pageId);
+                let pageInt = parseInt(pageId);
+                console.log(pageInt);
+                loadTable(pageInt);
             })
         });
     </script>
