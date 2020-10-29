@@ -19,8 +19,8 @@ include 'conn.php';
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="table.css" rel="stylesheet" />
-    <link href="deleteCss.css" rel="stylesheet" />
+    <link href="Css/table.css" rel="stylesheet" />
+    <link href="Css/deleteCss.css" rel="stylesheet" />
 
 
     <script>
@@ -61,7 +61,7 @@ include 'conn.php';
         // load data into table
         $(document).ready(function() {
             function loadTable(page) {
-                console.log(page);
+                // console.log(page);
                 $.ajax({
                     url: "pagination.php",
                     type: "POST",
@@ -69,7 +69,7 @@ include 'conn.php';
                         pageNo: page
                     },
                     success: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         $('#container').html(data);
                     }
                 });
@@ -79,7 +79,7 @@ include 'conn.php';
                 e.preventDefault();
                 let pageId = $(this).attr("id");
                 let pageInt = parseInt(pageId);
-                console.log(pageInt);
+                // console.log(pageInt);
                 loadTable(pageInt);
             })
         });

@@ -68,11 +68,11 @@ $result = mysqli_query($conn, $qr) or die('not success');
                         </td>
 
                         <td><?php echo $userData['id']; ?></td>
-                        <td><?php echo $userData['name'] ?></td>
-                        <td><?php echo $userData['email'] ?></td>
-                        <td><?php echo $userData['gender'] ?></td>
-                        <td><?php echo $userData['password'] ?></td>
-                        <td><?php echo $userData['reg_date'] ?></td>
+                        <td><?php echo $userData['name']; ?></td>
+                        <td><?php echo $userData['email']; ?></td>
+                        <td><?php echo $userData['gender'];?></td>
+                        <td><?php echo $userData['password']; ?></td>
+                        <td><?php echo $userData['reg_date']; ?></td>
 
                         <td>
                             <a href="editUser.php?id=<?php echo $userData['id']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -107,7 +107,6 @@ if (mysqli_num_rows($result2) > 0) { ?>
             <?php
             for ($i = 1; $i <=  $totalPage; $i++) {
             ?>
-
                 <?php
                 if ($i == $page) {
                     $active = "active";
@@ -115,6 +114,7 @@ if (mysqli_num_rows($result2) > 0) { ?>
                     $active = "";
                 }
                 ?>
+                
                 <li class="page-item <?php echo $active; ?>">
                     <a id=<?php echo  (int)$i; ?> class="active" href="" class="page-link"> <?php echo $i; ?> </a>
                 </li>
