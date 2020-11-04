@@ -31,24 +31,8 @@
                 <?php
                 echo htmlspecialchars($_SERVER["PHP_SELF"]);
                 ?>">
-
-                    <!-- username -->
-                    <!-- <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                        </div>
-                        <input name="name" id="name" class="form-control" placeholder="Enter Your Name" type="text" 
-                    
-                        value="<?php
-                                if (isset($_COOKIE['userName'])) {
-                                    echo $_COOKIE['userName'];
-                                };
-                                ?>"
-                        > -->
-                    <!-- cookie consumed here/ -->
-                    <!-- </div>  -->
-
-                    <!-- username -->
+                
+                <!-- username -->
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>

@@ -37,53 +37,74 @@ $result = mysqli_query($conn, $qr) or die('not success');
                 </div>
             </div>
         </div>
-        <table name="dataTable" id="dataTable" class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="selectAll">
-                            <label for="selectAll"></label>
-                        </span>
-                    </th>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Gender</th>
-                    <th>Password</th>
-                    <th>Reg. date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <?php
-                while ($userData = mysqli_fetch_assoc($result)) {
-                ?>
+
+        <form method='post' action='download.php'>
+            <table name="dataTable" id="dataTable" class="table table-striped table-hover">
+                <thead>
                     <tr>
-                        <td>
+                        <th>
                             <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox <?php echo $userData['id']; ?> " name="options[]" value="<?php echo $userData['id']; ?>">
-                                <label for="checkbox <?php echo $userData['id']; ?>"></label>
+                                <input type="checkbox" id="selectAll">
+                                <label for="selectAll"></label>
                             </span>
-                        </td>
-
-                        <td><?php echo $userData['id']; ?></td>
-                        <td><?php echo $userData['name']; ?></td>
-                        <td><?php echo $userData['email']; ?></td>
-                        <td><?php echo $userData['gender'];?></td>
-                        <td><?php echo $userData['password']; ?></td>
-                        <td><?php echo $userData['reg_date']; ?></td>
-
-                        <td>
-                            <a href="editUser.php?id=<?php echo $userData['id']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-
-                            <a href="deleteUser.php?id=<?php echo $userData['id'] ?> " class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
+                        </th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Password</th>
+                        <th>Reg. date</th>
+                        <th>Actions</th>
                     </tr>
-                <?php }
-                ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="tableBody">
+                    <?php
+                    $userArray = ["id", "name", "email", "gender", "reg_date"];
+                    while ($userData = mysqli_fetch_assoc($result)) {
+                        $id = $userData['id'];
+                        $name = $userData['name'];
+                        $email = $userData['email'];
+                        $gender = $userData['gender'];
+                        $reg_date = $userData['reg_date'];
+
+                        $userArray = [$id, $name, $email, $gender, $reg_date];
+                    ?>
+                        <tr>
+                            <td>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="checkbox <?php echo $userData['id']; ?> " name="options[]" value="<?php echo $userData['id']; ?>">
+                                    <label for="checkbox <?php echo $userData['id']; ?>"></label>
+                                </span>
+                            </td>
+
+                            <td><?php echo $userData['id']; ?></td>
+                            <td><?php echo $userData['name']; ?></td>
+                            <td><?php echo $userData['email']; ?></td>
+                            <td><?php echo $userData['gender']; ?></td>
+                            <td><?php echo $userData['password']; ?></td>
+                            <td><?php echo $userData['reg_date']; ?></td>
+
+                            <td>
+                                <a href="editUser.php?id=<?php echo $userData['id']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+
+                                <a href="deleteUser.php?id=<?php echo $userData['id'] ?> " class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                    <?php }
+                    ?>
+                </tbody>
+            </table>
+        </form>
+        
+        <!-- to download csv file  -->
+        <form class="form-horizontal" action="functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-4">
+                    <input type="submit" name="Export" class="btn btn-success" value="Export to Excel" />
+                </div>
+            </div>
+        </form>
+
     </div>
 </div>
 
@@ -114,7 +135,7 @@ if (mysqli_num_rows($result2) > 0) { ?>
                     $active = "";
                 }
                 ?>
-                
+
                 <li class="page-item <?php echo $active; ?>">
                     <a id=<?php echo  (int)$i; ?> class="active" href="" class="page-link"> <?php echo $i; ?> </a>
                 </li>
